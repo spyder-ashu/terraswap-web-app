@@ -52,6 +52,8 @@ interface TokenInfo {
   symbol: string
   name: string
   contract_addr: string
+  decimals?: number
+  total_supply?: string
 }
 
 interface PairsResponse {
@@ -203,7 +205,7 @@ export default () => {
             try {
               const tokenInfo1 = await getTokenInfo(pairResult.asset_infos[0])
               const tokenInfo2 = await getTokenInfo(pairResult.asset_infos[1])
-              if (tokenInfo1 === undefined || tokenInfo2 === undefined) {
+              if (!tokenInfo1 || !tokenInfo2) {
                 return
               }
 

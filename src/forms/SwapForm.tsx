@@ -258,21 +258,21 @@ const SwapForm = ({ type, tabs }: { type: Type; tabs: Tab }) => {
     return [
       ...insertIf(type === Type.SWAP, {
         title: <TooltipIcon content={Tooltip.Swap.Rate}>Rate</TooltipIcon>,
-        content: `${decimal(simulatedData?.price, 6)} ${
+        content: `${decimal(simulatedData?.price, tokenInfo1?.decimals || 6)} ${
           formData[Key.symbol1]
         } per ${formData[Key.symbol2]}`,
       }),
       ...insertIf(type !== Type.SWAP, {
         title: `${formData[Key.symbol1]} price`,
-        content: `${poolResult && decimal(poolResult.price1, 6)} ${
-          formData[Key.symbol1]
-        } per LP`,
+        content: `${
+          poolResult && decimal(poolResult.price1, tokenInfo1?.decimals || 6)
+        } ${formData[Key.symbol1]} per LP`,
       }),
       ...insertIf(type !== Type.SWAP, {
         title: `${formData[Key.symbol2]} price`,
-        content: `${poolResult && decimal(poolResult.price2, 6)} ${
-          formData[Key.symbol2]
-        } per LP`,
+        content: `${
+          poolResult && decimal(poolResult.price2, tokenInfo2?.decimals || 6)
+        } ${formData[Key.symbol2]} per LP`,
       }),
       ...insertIf(type === Type.SWAP, {
         title: (
@@ -327,7 +327,7 @@ const SwapForm = ({ type, tabs }: { type: Type; tabs: Tab }) => {
         ),
       },
     ]
-  }, [find, formData, poolResult, simulatedData, type])
+  }, [find, formData, poolResult, simulatedData, tokenInfo1, tokenInfo2, type])
 
   const { gasPrice } = useGasPrice(formData[Key.feeSymbol])
   const getTax = useCallback(
@@ -764,7 +764,10 @@ const SwapForm = ({ type, tabs }: { type: Type; tabs: Tab }) => {
                       const taxs = (
                         await getTax({
                           symbol1: formData[Key.symbol1],
-                          value1:  format(formData[Key.max1], formData[Key.symbol1]),
+                          value1: format(
+                            formData[Key.max1],
+                            formData[Key.symbol1]
+                          ),
                           max1: formData[Key.max1],
                         })
                       ).split(",")
