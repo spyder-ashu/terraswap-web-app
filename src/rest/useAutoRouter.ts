@@ -11,6 +11,7 @@ type Params = {
   to: string
   amount: number | string
   type?: Type
+  hopCount?: number | string
 }
 
 function sleep(t: number) {
@@ -18,7 +19,7 @@ function sleep(t: number) {
 }
 
 const useAutoRouter = (params: Params) => {
-  const { from, to, type, amount } = params
+  const { from, to, type, amount, hopCount } = params
   // const amount = 1;
   const { generateContractMessages, querySimulate } = useAPI()
   const [isLoading, setIsLoading] = useState(false)
@@ -107,6 +108,7 @@ const useAutoRouter = (params: Params) => {
         sender: "-",
         max_spread: 0,
         belief_price: 0,
+        hop_count: `${hopCount || 3}`,
       })
       if (Array.isArray(res) && !isCanceled) {
         setMsgs(res)
@@ -123,7 +125,15 @@ const useAutoRouter = (params: Params) => {
       clearTimeout(timerId)
       isCanceled = true
     }
-  }, [amount, from, generateContractMessages, to, type, autoRefreshTicker])
+  }, [
+    hopCount,
+    amount,
+    from,
+    generateContractMessages,
+    to,
+    type,
+    autoRefreshTicker,
+  ])
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -140,9 +150,9 @@ const useAutoRouter = (params: Params) => {
     let isCanceled = false
     const request = async () => {
       const simulateQueries = msgs.map((msg) => {
-        let { contract, execute_msg } = (Array.isArray(msg)
-          ? msg[0]
-          : msg) as any
+        let { contract, execute_msg } = (
+          Array.isArray(msg) ? msg[0] : msg
+        ) as any
 
         if (execute_msg?.send) {
           contract = execute_msg?.send?.contract
