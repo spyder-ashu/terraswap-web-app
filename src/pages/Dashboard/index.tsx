@@ -25,7 +25,7 @@ const Wrapper = styled(container)`
   height: auto;
   position: relative;
   color: ${({ theme }) => theme.primary};
-  background-color: ${({ theme }) => theme.primary};
+  background-color: #1e2129;
   z-index: 1;
 `
 

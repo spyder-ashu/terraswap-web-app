@@ -117,7 +117,7 @@ const Chart = (props: Props) => {
 export default Chart
 
 /* Chart.js */
-const BLUE = "#0222ba"
+const BLUE = "#006835"
 const getOptions = (
   type: ChartType,
   config: {
@@ -133,22 +133,22 @@ const getOptions = (
   const props = {
     doughnut: {
       backgroundColor: [
-        "#4D63CE",
-        "#6679D4",
-        "#8090DC",
-        "#99A6E3",
-        "#B2BCEA",
-        "#CCD2F1",
+        "#006835",
+        "#318852",
+        "#54A970",
+        "#76CB90",
+        "#98EFB1",
+        "#D4FADD",
       ],
     },
     pie: {
       backgroundColor: config.pieBackgroundColors || [
-        "#4D63CE",
-        "#6679D4",
-        "#8090DC",
-        "#99A6E3",
-        "#B2BCEA",
-        "#CCD2F1",
+        "#006835",
+        "#318852",
+        "#54A970",
+        "#76CB90",
+        "#98EFB1",
+        "#D4FADD",
       ],
       borderWidth: 0,
     },
@@ -157,7 +157,7 @@ const getOptions = (
       pointBackgroundColor: BLUE,
       pointRadius: 0,
       pointHoverRadius: 0,
-      backgroundColor: "#D9DEF5",
+      backgroundColor: "#98EFB1",
       ...config.lineStyle,
     },
   }[type]
@@ -235,7 +235,7 @@ const getOptions = (
             ticks: {
               source: "data" as const,
               // autoSkip: true,
-              fontColor: "#7282c9",
+              fontColor: "#09C46A",
               fontSize: 11,
               minRotation: 0,
               maxRotation: 0,
@@ -256,7 +256,7 @@ const getOptions = (
         yAxes: [
           {
             ticks: {
-              fontColor: "#7282c9",
+              fontColor: "#09C46A",
               fontSize: 11,
               callback(value: any) {
                 return formatMoney(Number(value), 1)

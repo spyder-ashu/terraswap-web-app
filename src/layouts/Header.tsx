@@ -60,9 +60,9 @@ const Header = () => {
       <header className={styles.header}>
         <Container className={styles.container}>
           <section className={styles.wrapper}>
-            <Link to="/">
+            {/* <Link to="/">
               <Logo height={38} className={styles.logo} />
-            </Link>
+            </Link> */}
           </section>
 
           <section className={styles.support}>

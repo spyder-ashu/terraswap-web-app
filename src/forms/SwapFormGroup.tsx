@@ -35,7 +35,7 @@ const SwapFormGroup = ({
     type: "button",
     className: styles.max,
     onClick: max,
-    color: "#0222ba00",
+    color: "#0222ba0",
     size: "xs",
     outline: true,
     children: "Max",
